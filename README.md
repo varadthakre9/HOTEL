@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/26210754/README.md)
 # The Container Kitchen - Online Ordering Website
 
 A mobile-first cafe ordering website with menu browsing, cart, online ordering, and an admin panel for order management.
@@ -91,6 +90,36 @@ Remove-Item database.json; node server.js
 # macOS / Linux
 rm database.json && node server.js
 ```
+
+## Deployment
+
+> **Netlify is not compatible** with this project. Netlify only hosts static sites and cannot run a persistent Node.js server, handle API routes, or provide a writable filesystem for the JSON database.
+
+### Recommended: Render (free tier)
+
+1. Push your code to a **GitHub** repository
+2. Go to [render.com](https://render.com) and sign up
+3. Click **New → Web Service** and connect your GitHub repo
+4. Configure:
+   - **Runtime:** Node
+   - **Build Command:** _(leave blank)_
+   - **Start Command:** `node server.js`
+5. Click **Deploy** — the site will be live at a `*.onrender.com` URL
+
+### Alternative: Railway
+
+1. Go to [railway.app](https://railway.app) and sign up
+2. Click **New Project → Deploy from GitHub Repo**
+3. Select your repo — Railway auto-detects Node.js and deploys
+
+### Why not Netlify?
+
+| Feature | This Project | Netlify |
+|---------|-------------|---------|
+| Node.js HTTP server | `http.createServer` | Not supported |
+| Persistent database | `database.json` file R/W | No writable filesystem |
+| API endpoints | `/api/menu`, `/api/orders` | Only via serverless functions (requires full rewrite) |
+| File uploads | `public/uploads/` | No writable filesystem |
 
 ## Tech Stack
 
