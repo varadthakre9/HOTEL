@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - The Container Kitchen</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Login -->
+  <div id="admin-login" class="admin-login-page">
+    <div class="login-card">
+      <h2>Admin Panel</h2>
+      <p class="login-sub">The Container Kitchen</p>
+      <div class="login-error" id="login-error">Invalid credentials</div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="login-user" placeholder="admin" value="admin">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <button class="btn-primary btn-full" onclick="doLogin()" style="margin-top:1rem">Login</button>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="admin-app" class="admin-app">
+    <div class="admin-header">
+      <div class="logo">Container Kitchen Admin</div>
+      <button class="btn-logout" onclick="doLogout()">Logout</button>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('dashboard')">Dashboard</button>
+      <button class="admin-tab" onclick="switchTab('orders')">Orders</button>
+      <button class="admin-tab" onclick="switchTab('menu')">Menu Items</button>
+    </div>
+
+    <!-- Dashboard Tab -->
+    <div id="tab-dashboard" class="admin-content tab-content active">
+      <div class="stats-grid" id="stats-grid"></div>
+      <h3 class="admin-section-title">Popular Items Today</h3>
+      <div id="popular-items"></div>
+    </div>
+
+    <!-- Orders Tab -->
+    <div id="tab-orders" class="admin-content tab-content" style="display:none">
+      <h3 class="admin-section-title">All Orders</h3>
+      <div style="overflow-x:auto">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Customer & Delivery</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="orders-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Menu Tab -->
+    <div id="tab-menu" class="admin-content tab-content" style="display:none">
+      <div class="admin-menu-header">
+        <h3 class="admin-section-title">Menu Items</h3>
+        <button class="btn-primary" onclick="openAddItemModal()">+ Add Item</button>
+      </div>
+      <div class="admin-menu-grid" id="admin-menu-grid"></div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Item Modal -->
+  <div id="item-modal" class="modal">
+    <div class="modal-content modal-form">
+      <h3 id="modal-title">Add New Item</h3>
+      <input type="hidden" id="edit-item-id">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="item-name" placeholder="Item name">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" id="item-desc" placeholder="Short description">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Price (₹)</label>
+          <input type="number" id="item-price" placeholder="0">
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select id="item-category"></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Type</label>
+          <select id="item-veg">
+            <option value="1">Veg</option>
+            <option value="0">Non-Veg</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Image</label>
+          <input type="file" id="item-image" accept="image/*" style="font-size:0.85rem">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-cancel" onclick="closeItemModal()">Cancel</button>
+        <button class="btn-primary" onclick="saveItem()">Save Item</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>
